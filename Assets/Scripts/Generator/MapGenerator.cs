@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
 
 public class MapGenerator : Singleton<MapGenerator>
@@ -13,23 +14,27 @@ public class MapGenerator : Singleton<MapGenerator>
     [SerializeField] Transform[] characterTfs;
     [SerializeField] int numPlayer;
     [SerializeField] List<Platform> platforms;
-    [SerializeField] DataColor playerColor;
+    DataColor playerColor;
 
     private void Start()
     {
-        StartGenerate();
+        Addressables.LoadAssetAsync<DataColorList>("DataColorList").Completed += (op) =>
+        {
+            dataColors = op.Result.dataColors;
+            StartGenerate();
+
+        };
     }
     private void StartGenerate()
     {
+        playerColor = dataColors[PlayerPrefs.HasKey("Color") ? PlayerPrefs.GetInt("Color") : 0];
         foreach (Platform platform in platforms)
         {
             platform.Init();
         }
 
-        player.transform.position = characterTfs[0].position;
-        player.Generate(playerColor, platforms[0]);
 
-        for (int i = 0; i < numPlayer - 1; i++)
+        for (int i = 0; i < numPlayer; i++)
         {
             if (dataColors[i] != playerColor)
             {
@@ -37,7 +42,8 @@ public class MapGenerator : Singleton<MapGenerator>
                     .GetComponent<Enemy>().Generate(dataColors[i], platforms[0]);
             }else
             {
-                numPlayer += 1;
+                player.transform.position = characterTfs[i].position;
+                player.Generate(playerColor, platforms[0]);
             }
         }
 

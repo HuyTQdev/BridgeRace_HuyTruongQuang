@@ -7,8 +7,14 @@ public class Player : Character
     [SerializeField] private Joystick _joystick;
     [SerializeField] private float _moveSpeed;
 
+    public override void Generate(DataColor dataColor, Platform platform)
+    {
+        base.Generate(dataColor, platform);
+        _joystick = UI.UIManager.Instance.GetUI<UI.CanvasGamePlay>().GetJoystick();
+    }
     private void FixedUpdate()
     {
+        if (_joystick == null || isEndGame) return;
         _rigidbody.velocity = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical).normalized * _moveSpeed + Vector3.up * Mathf.Min(1, Mathf.Max(-1, _rigidbody.velocity.y));
         if (_joystick.Direction.sqrMagnitude <= 0.1f || IsFalling) StopMoving();
         if (_rigidbody.velocity.magnitude != 0)
@@ -37,6 +43,11 @@ public class Player : Character
     protected override void EndGame(object[] parameters)
     {
         base.EndGame(parameters);
-
+        if (parameters.Length > 0 && parameters[0] is Character)
+        {
+            UI.UIManager.Instance.CloseAll();
+            UI.UIManager.Instance.OpenUI<UI.CanvasEndGame>();
+            UI.UIManager.Instance.GetUI<UI.CanvasEndGame>().SetTitle((Character)parameters[0] == this);
+        }
     }
 }

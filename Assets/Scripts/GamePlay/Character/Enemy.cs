@@ -117,6 +117,10 @@ public class Enemy: Character
     public void CalculateToChange()
     {
         int i = 10;
+        if(isEndGame)
+        {
+            return;
+        }
         if (addBlockScript.CurNumBlock >= i)
         {
             ChangeState(EnemyState.BUILD);

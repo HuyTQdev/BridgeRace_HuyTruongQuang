@@ -28,7 +28,6 @@ namespace UI {
         {
             if(choosenIcon != null) choosenIcon.enabled = v;
             if(unChoosenIcon != null) unChoosenIcon.enabled = !v;
-            Debug.Log(id + ": " + v);
         }
     }
 }

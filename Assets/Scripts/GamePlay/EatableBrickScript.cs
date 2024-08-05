@@ -40,9 +40,9 @@ public class EatableBrickScript:MonoBehaviour
         boxCollider.isTrigger = false;
         _rigidbody.useGravity = true;
         EventManager.Instance.TriggerEvent("GENBLOCKGREY", position);
-        _rigidbody.AddForce(UnityEngine.Random.Range(-1.5f, 1.5f) * Vector3.right
-            + UnityEngine.Random.Range(-1.5f, 1.5f) * Vector3.up
-            + UnityEngine.Random.Range(.5f, 1f) * Vector3.forward, ForceMode.Impulse);
+        _rigidbody.AddForce(UnityEngine.Random.Range(-0.5f, 0.5f) * Vector3.right
+            + UnityEngine.Random.Range(-0.5f, 0.5f) * Vector3.up
+            + UnityEngine.Random.Range(1f, 2f) * Vector3.forward, ForceMode.Impulse);
 
     }
 

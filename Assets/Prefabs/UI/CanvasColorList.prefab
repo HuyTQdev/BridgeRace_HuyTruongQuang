@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 230919598654381674}
   - component: {fileID: 7949600311842365547}
   m_Layer: 5
-  m_Name: Canvas-ColorList
+  m_Name: CanvasColorList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

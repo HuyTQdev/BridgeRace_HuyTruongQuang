@@ -16,6 +16,7 @@ public class Character: MonoBehaviour
     public DataColor DataColor { get; private set; }
     [SerializeField] float force;
     public bool IsFalling { get; private set; }
+    protected bool isEndGame;
     public bool IsOnGround { get; set; }
     public Platform platform { get; private set; }
     private Platform oldPlatform;
@@ -30,6 +31,7 @@ public class Character: MonoBehaviour
     }
     public virtual void Generate(DataColor dataColor, Platform platform)
     {
+        isEndGame = false;
         this.platform = platform;
         this.DataColor = dataColor;
         IsFalling = false;
@@ -47,7 +49,7 @@ public class Character: MonoBehaviour
 
     private void LateUpdate()
     {
-        if (IsFalling) StopMoving();
+        if (IsFalling || isEndGame) StopMoving();
     }
 
     public virtual void Pass()
@@ -67,6 +69,7 @@ public class Character: MonoBehaviour
 
     public virtual void ChangePlatform(Platform platform)
     {
+        if (this.platform == null) return;
         oldPlatform = this.platform;
         this.platform = platform;
         oldPlatform.UnRegister(this);
@@ -95,7 +98,8 @@ public class Character: MonoBehaviour
 
     protected virtual void EndGame(object[] parameters)
     {
-        if(parameters.Length > 0 && parameters[0] is Character)
+        isEndGame = true;
+        if (parameters.Length > 0 && parameters[0] is Character)
         {
             addBlockScript.EndGame();
             StopMoving();

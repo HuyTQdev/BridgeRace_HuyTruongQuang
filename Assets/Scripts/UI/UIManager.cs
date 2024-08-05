@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Events;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace UI
 {
@@ -105,21 +107,24 @@ namespace UI
         //lay prefab tu Resources/UI 
         private T GetUIPrefab<T>() where T : UICanvas
         {
-            if (!uiCanvasPrefab.ContainsKey(typeof(T)))
+            while (!uiCanvasPrefab.ContainsKey(typeof(T)))
             {
                 //if (uiResources == null)
                 //{
                 //    uiResources = Resources.LoadAll<UICanvas>("UI/");
                 //}
-
-                for (int i = 0; i < uiResources.Length; i++)
+                var op = Addressables.LoadAssetAsync<GameObject>(typeof(T).Name.Replace("UI.", ""));
+                op.WaitForCompletion();
+                uiCanvasPrefab[typeof(T)] = op.Result.GetComponent<T>();
+                
+                /*    for (int i = 0; i < uiResources.Length; i++)
                 {
                     if (uiResources[i] is T)
                     {
                         uiCanvasPrefab[typeof(T)] = uiResources[i];
                         break;
                     }
-                }
+                }*/
             }
 
             return uiCanvasPrefab[typeof(T)] as T;

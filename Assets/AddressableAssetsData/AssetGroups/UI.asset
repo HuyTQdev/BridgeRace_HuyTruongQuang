@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UI
+  m_EditorClassIdentifier: 
+  m_GroupName: UI
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 318c7815fa5617e41b23adbae75eb44d
+  m_SerializeEntries:
+  - m_GUID: 484389ecab3f7e44aa495c05b3d0e37a
+    m_Address: CanvasColorList
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f97790f382e04c64296fc8c0c7005a8c
+    m_Address: CanvasMainMenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ffce69e141e1c94f847250ef0832d95
+    m_Address: ColorView - Button
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ecc253e109e40e4687b989d5aed92be
+    m_Address: CanvasGamePlay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b76e2bea1c74aa49a26693df9c382d9
+    m_Address: CanvasEndGame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: dee415ac4e616f9408739fdc8eb701ef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1416e4e3152132742974255b88326c4b, type: 2}
+    - {fileID: 11400000, guid: 50d33371b2aa5954c8d7c674c44c8ab2, type: 2}

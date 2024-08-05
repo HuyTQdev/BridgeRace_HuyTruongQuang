@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Texture2D
+  m_EditorClassIdentifier: 
+  m_GroupName: Texture2D
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 5c98b67f1986da94a8b452113a1df195
+  m_SerializeEntries:
+  - m_GUID: 7eb81e4a082631d4e9e312083adb6253
+    m_Address: lose
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f273cf4b94b6404ca18f427133a8973
+    m_Address: win
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: dee415ac4e616f9408739fdc8eb701ef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9b0ba1547517f7147a1088721354c472, type: 2}
+    - {fileID: 11400000, guid: 036b127583a2e3d4297da4165f3c8c29, type: 2}

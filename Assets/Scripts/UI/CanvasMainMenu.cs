@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -12,9 +14,14 @@ namespace UI
         {
             UIManager.Instance.OpenUI<CanvasColorList>();
         }
-        public void OpenSetting()
+        public void OpenSettings()
         {
+            UIManager.Instance.OpenUI<CanvasSettings>();
+        }
 
+        public void PlayGame()
+        {
+            Addressables.LoadSceneAsync("Level1");
         }
     }
 }
