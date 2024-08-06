@@ -19,9 +19,10 @@ namespace UI {
             this.id = id;
         }
 
-        public void Select()
+        public async void Select()
         {
-            UIManager.Instance.GetUI<CanvasColorList>().ChooseColor(id);
+            var colorListCanvas = await UIManager.Instance.GetUI<CanvasColorList>();
+            colorListCanvas.ChooseColor(id);
         }
 
         public void UpdateChosen(bool v)

@@ -31,33 +31,33 @@ namespace UI
 
         //open UI
         //mo UI canvas
-        public T OpenUI<T>() where T : UICanvas
+        public async Task<T> OpenUI<T>() where T : UICanvas
         {
-            UICanvas canvas = GetUI<T>();
-
-            canvas.Setup();
-            canvas.Open();
-
-            return canvas as T;
+            var ui = await GetUI<T>();
+            ui.Setup();
+            ui.Open();
+            return ui;
         }
 
         //close UI directly
         //dong UI canvas ngay lap tuc
-        public void CloseUI<T>() where T : UICanvas
+        public async Task CloseUI<T>() where T : UICanvas
         {
             if (IsOpened<T>())
             {
-                GetUI<T>().CloseDirectly();
+                var ui = await GetUI<T>();
+                ui.CloseDirectly();
             }
         }
 
         //close UI with delay time
         //dong ui canvas sau delay time
-        public void CloseUI<T>(float delayTime) where T : UICanvas
+        public async Task CloseUI<T>(float delayTime) where T : UICanvas
         {
-            if (IsOpened<T>())
+            if (uiCanvas.ContainsKey(typeof(T)))
             {
-                GetUI<T>().Close(delayTime);
+                var ui = await GetUI<T>();
+                ui.Close(delayTime);
             }
         }
 
@@ -78,13 +78,13 @@ namespace UI
 
         //Get component UI 
         //lay component cua UI hien tai
-        public T GetUI<T>() where T : UICanvas
+        public async Task<T> GetUI<T>() where T : UICanvas
         {
             //Debug.LogError(typeof(T));
-            if (!IsLoaded<T>())
+            if (!uiCanvas.ContainsKey(typeof(T)))
             {
-                UICanvas canvas = Instantiate(GetUIPrefab<T>(), CanvasParentTF);
-                uiCanvas[typeof(T)] = canvas;
+                var prefab = await GetUIPrefab<T>();
+                uiCanvas[typeof(T)] = Instantiate(prefab, CanvasParentTF);
             }
 
             return uiCanvas[typeof(T)] as T;
@@ -105,26 +105,13 @@ namespace UI
 
         //Get prefab from resource
         //lay prefab tu Resources/UI 
-        private T GetUIPrefab<T>() where T : UICanvas
+        private async Task<T> GetUIPrefab<T>() where T : UICanvas
         {
             while (!uiCanvasPrefab.ContainsKey(typeof(T)))
             {
-                //if (uiResources == null)
-                //{
-                //    uiResources = Resources.LoadAll<UICanvas>("UI/");
-                //}
                 var op = Addressables.LoadAssetAsync<GameObject>(typeof(T).Name.Replace("UI.", ""));
-                op.WaitForCompletion();
+                await op.Task;
                 uiCanvasPrefab[typeof(T)] = op.Result.GetComponent<T>();
-                
-                /*    for (int i = 0; i < uiResources.Length; i++)
-                {
-                    if (uiResources[i] is T)
-                    {
-                        uiCanvasPrefab[typeof(T)] = uiResources[i];
-                        break;
-                    }
-                }*/
             }
 
             return uiCanvasPrefab[typeof(T)] as T;

@@ -7,11 +7,13 @@ public class Player : Character
     [SerializeField] private Joystick _joystick;
     [SerializeField] private float _moveSpeed;
 
-    public override void Generate(DataColor dataColor, Platform platform)
-    {
-        base.Generate(dataColor, platform);
-        _joystick = UI.UIManager.Instance.GetUI<UI.CanvasGamePlay>().GetJoystick();
-    }
+    public override async void Generate(DataColor dataColor, Platform platform)
+{
+    base.Generate(dataColor, platform);
+
+    var gameplayCanvas = await UI.UIManager.Instance.GetUI<UI.CanvasGamePlay>();
+    _joystick = gameplayCanvas.GetJoystick();
+}
     private void FixedUpdate()
     {
         if (_joystick == null || isEndGame) return;
@@ -40,14 +42,15 @@ public class Player : Character
         platform.OpenBlocked();
     }
 
-    protected override void EndGame(object[] parameters)
+    protected override async void EndGame(object[] parameters)
     {
         base.EndGame(parameters);
+
         if (parameters.Length > 0 && parameters[0] is Character)
         {
             UI.UIManager.Instance.CloseAll();
-            UI.UIManager.Instance.OpenUI<UI.CanvasEndGame>();
-            UI.UIManager.Instance.GetUI<UI.CanvasEndGame>().SetTitle((Character)parameters[0] == this);
+            var endGameCanvas = await UI.UIManager.Instance.OpenUI<UI.CanvasEndGame>();
+            endGameCanvas.SetTitle((Character)parameters[0] == this);
         }
     }
 }
